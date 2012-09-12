@@ -14,11 +14,12 @@ DB.prototype.indexStats = function() {
 
   for(cIdx in collections) {
     var cName = collections[cIdx];
+    var nsName = db.getName()+"."+cName;
     if(cName.indexOf("system") == -1) {
       var i = 1;
-      var count = db.system.profile.count({ns:db.getName()+"."+cName});
-      print("scanning profile with "+count+" records... this could take a while.");
-      db.system.profile.find({ns:db.getName()+"."+cName}).addOption(16).batchSize(10000).forEach(function(profileDoc) {
+      var count = db.system.profile.count({ns:nsName});
+      print('scanning profile {ns:"'+nsName+'"} with '+count+" records... this could take a while.");
+      db.system.profile.find({ns:nsName}).addOption(16).batchSize(10000).forEach(function(profileDoc) {
         if(profileDoc.query && !profileDoc.query["$explain"]) { 
           var qIdx = findQuery(profileDoc.query);
           if(qIdx == -1) {
@@ -39,7 +40,7 @@ DB.prototype.indexStats = function() {
               queries[size-1].index = explain.cursor.split(" ")[1];
               //print("found index in use: " + queries[size-1].index); 
             } else {
-              print("warning, no index for query: ");
+              print('warning, no index for query {ns:"'+nsName+'"}: ');
               printjson(profileDoc.query);
               print("... millis: " + queries[size-1].millis);
               print("... nscanned/n: " + queries[size-1].nscanned + "/" + queries[size-1].n);
