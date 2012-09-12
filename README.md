@@ -25,7 +25,8 @@ example run
 
 ```JavaScript
 $ mongo mongochess --shell indexStats.js
-skeweredrook:PRIMARY> db.indexStats();
+...
+> db.indexStats();
 scanning profile with 2149 records... this could take a while.
 warning, no index for query: 
 { "moves.score" : 2 }
