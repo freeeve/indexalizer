@@ -30,8 +30,14 @@ $ mongo mongochess --shell indexStats.js
 scanning profile with 2149 records... this could take a while.
 warning, no index for query: 
 { "moves.score" : 2 }
-... millis: 145
-... nscanned/n: 16379/0
+... millis: 52
+... nscanned/n: 16334/0
+... scanAndOrder: false
+warning, no index for query: 
+{ "query" : { "moves.score" : 2 }, "orderby" : { "bestScore" : 1 } }
+... millis: 46
+... nscanned/n: 16334/0
+... scanAndOrder: true
 checking for unused indexes in: positions
 this index is not being used: 
 "priority_1"
