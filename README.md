@@ -25,7 +25,12 @@ example run
 
 ```JavaScript
 skeweredrook:PRIMARY> db.indexStats();
-scanning profile with 753 records... this could take a while.
+scanning profile with 2149 records... this could take a while.
+warning, no index for query: 
+{ "moves.score" : 2 }
+... millis: 145
+... nscanned: 16179
+... n[returned]: 0
 checking for unused indexes in: positions
 this index is not being used: 
 "priority_1"
