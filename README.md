@@ -13,6 +13,28 @@ Step 2: So far this only has a couple of hours put into it--a lot more to come. 
 indexStats.js into the mongo shell, and then run `db.indexStats()`. It will provide you with a list of indexes that aren't being used,
 as well as a list of queries that aren't using any indexes (which might not be the end of the world).
 
+tips
+===========
+
+You may need to increase your profile collection size (it's a capped collection), if you want full results.
+
+See: http://www.mongodb.org/display/DOCS/Database+Profiler#DatabaseProfiler-Changingthesystem.profileCollectionSize
+
+example run
+===========
+
+```JavaScript
+skeweredrook:PRIMARY> db.indexStats();
+scanning profile with 753 records... this could take a while.
+checking for unused indexes in: positions
+this index is not being used: 
+"priority_1"
+this index is not being used: 
+"minMoves_1"
+this index is not being used: 
+"maxDepth_1_forcedDraw_1_claimed_1_priority_-1_minMoves_1_bestScore_1"
+```
+
 license LGPL
 ===========
 Copyright 2012 Wes Freeman
