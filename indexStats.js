@@ -41,8 +41,7 @@ DB.prototype.indexStats = function() {
               print("warning, no index for query: ");
               printjson(profileDoc.query);
               print("... millis: " + queries[size-1].millis);
-              print("... nscanned: " + queries[size-1].nscanned);
-              print("... n[returned]: " + queries[size-1].n);
+              print("... nscanned/n: " + queries[size-1].nscanned + "/" + queries[size-1].n);
             }
           } else {
             queries[qIdx].count++;
