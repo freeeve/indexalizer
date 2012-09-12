@@ -18,7 +18,7 @@ DB.prototype.indexStats = function() {
       var i = 1;
       var count = db.system.profile.count({ns:db.getName()+"."+cName});
       print("scanning profile with "+count+" records... this could take a while.");
-      db.system.profile.find({ns:db.getName()+"."+cName}).forEach(function(profileDoc) {
+      db.system.profile.find({ns:db.getName()+"."+cName}).addOption(16).batchSize(10000).forEach(function(profileDoc) {
         if(profileDoc.query && !profileDoc.query["$explain"]) { 
           var qIdx = findQuery(profileDoc.query);
           if(qIdx == -1) {
@@ -32,12 +32,17 @@ DB.prototype.indexStats = function() {
             }
             queries[size-1].cursor = explain.cursor;
             queries[size-1].millis = explain.millis;
+            queries[size-1].nscanned = explain.nscanned;
+            queries[size-1].n = explain.n;
             if(explain.cursor != "BasicCursor") {
               queries[size-1].index = explain.cursor.split(" ")[1];
               //print("found index in use: " + queries[size-1].index); 
             } else {
               print("warning, no index for query: ");
               printjson(profileDoc.query);
+              print("... millis: " + queries[size-1].millis);
+              print("... nscanned: " + queries[size-1].nscanned);
+              print("... n[returned]: " + queries[size-1].n);
             }
           } else {
             queries[qIdx].count++;
@@ -59,6 +64,7 @@ DB.prototype.indexStats = function() {
           for(qIdx in queries) {
             if(queries[qIdx].index == iName) {
               found = true;
+              break;
             }
           }
           if(!found) {
