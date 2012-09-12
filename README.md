@@ -27,17 +27,17 @@ example run
 $ mongo mongochess --shell indexStats.js
 ...
 > db.indexStats();
-scanning profile with 2149 records... this could take a while.
-warning, no index for query: 
-{ "moves.score" : 2 }
-... millis: 52
-... nscanned/n: 16334/0
-... scanAndOrder: false
-warning, no index for query: 
+scanning profile {ns:"mongochess.positions"} with 3351 records... this could take a while.
+warning, no index for query {ns:"mongochess.positions"}: 
 { "query" : { "moves.score" : 2 }, "orderby" : { "bestScore" : 1 } }
-... millis: 46
+... millis: 47
 ... nscanned/n: 16334/0
 ... scanAndOrder: true
+warning, no index for query {ns:"mongochess.positions"}: 
+{ "moves.score" : 2 }
+... millis: 48
+... nscanned/n: 16334/0
+... scanAndOrder: false
 checking for unused indexes in: positions
 this index is not being used: 
 "priority_1"
