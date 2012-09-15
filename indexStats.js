@@ -36,7 +36,7 @@ DB.prototype.indexStats = function() {
             queries[size-1].nscanned = explain.nscanned;
             queries[size-1].n = explain.n;
             queries[size-1].scanAndOrder = explain.scanAndOrder ? true : false;
-            if(explain.cursor != "BasicCursor") {
+            if(explain.cursor && explain.cursor != "BasicCursor") {
               queries[size-1].index = explain.cursor.split(" ")[1];
               //print("found index in use: " + queries[size-1].index); 
             } else {
